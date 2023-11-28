@@ -18,24 +18,41 @@ ul {
     justify-content: space-between;
 } 
 
-.top {display: flex;
+.top {display: flex;   
 }
+
 .search-history {
     flex-direction: column;
     height: calc(100vh / 6);
 }
 
 .current-weather {
- display: inline-flex;
- margin-left: 5%;
+ display: flex;
+ width: fit-content 
 }
 
-.current-weather p {
-    margin-top: 5%;
-    margin-left: 5%;
-    justify-content:
+.current-weather li {
+  margin: auto;
+border: 1px solid orange;
+border-radius: 5%
+
 }
+
+.bottom {
+    margin-top: 4%;
+}
+
+.forcast-container{
+    margin-top: 1%;
+}
+
 #results {
    display: block;
 }
 
+@media (max-width: 768px) {
+    .current-weather li {
+  display: block;
+  margin: 1em 0;
+ max-width: 100%;
+}

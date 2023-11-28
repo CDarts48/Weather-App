@@ -10,29 +10,32 @@
 <body>
     <header>Weather App</header>
     
-    <form autocomplete="on">
+    <form autocomplete="off">
         <input type="submit" id ="searchBtn" value="Search">
+        <label for="selected-city">Enter a City:</label>
          <input type="text" id="selected-city" placeholder="Search for a city">
+         <label for="state">State:</label>
+         <select id="state" name="state">
+            
+         </select>
+         
     </form>
     <section class = "top">
     <section class="search-history">
         <h2>Search History</h2>
         <ul id = "results">
-            <li>City 1</li>
-            <li>City 2</li>
-            <li>City 3</li>
-            <li>City 4</li>
-            <li>City 5</li>
         </ul>
         </section>
-    <section class="current-weather"><h1>City (Date)</h1>
-    <p>Temp:</p>
-    <p>Wind:</p>
-    <p>Humidity:</p>
+    <section class="current-weather"> <li class ="ciudad">City</li>
+    <li id ="current-date">(Date)</li>
+    <li>Temp:</li>
+    <li>Wind:</li>
+    <li>Humidity:</li>
     </section>
     </section>
-    <section id ="forcast" style="margin-top: 4%;";">5 Day Forcast</section>
-    <section class = "container">
+    <section class = "bottom">
+    <section id ="forecast";">5 Day Forcast</section>
+    <section class = "forecast-container">
         <ul>
             <li id = "day1" class = "of-week">monday</li>
             <li id = "day2" class = "of-week"">tuesday</li>
@@ -41,7 +44,7 @@
             <li id = "day5" class = "of-week">friday</li>
         </ul>
     </section>
-    <section></section>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.10.7/dayjs.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
