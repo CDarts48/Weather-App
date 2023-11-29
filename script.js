@@ -7,30 +7,63 @@ var searchBtn = document.getElementById("searchBtn");
 var cityName = document.getElementById("selected-city");
 const forecast5 = document.getElementById("forcast-container");
 
-searchBtn.addEventListener("click", function (event) {
+searchBtn.addEventListener(`click`, function (event) {
   event.preventDefault();
   var city = cityName.value;
-  var apiurl = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${APIKey}`;
+  getLatAndLon(city);
+  saveSearchHistory(city);
+});
 
+function getLatAndLon(city) {
+  var apiUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${APIKey}`;
+
+  fetch(apiUrl)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      var lat = data[0].lat;
+      var lon = data[0].lon;
+      getWeatherData(lat, lon);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+function getWeatherData(lat, lon) {
+  var apiUrl = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${APIKey}`;
+
+  fetch(apiUrl)
+    .then(function (response) {
+      return response.json();
+    })
+
+    .then(function (data) {
+      renderWeatherData(data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
+function renderWeatherData(data) {
+  console.log(data);
+}
+
+function saveSearchHistory(city) {
   var searchHistory = document.querySelector(".search-history");
   if (searchHistory) {
     var newLI = document.createElement("li");
     newLI.textContent = city;
     searchHistory.appendChild(newLI);
-
-    var searchHistoryItems = document.querySelectorAll(".search-history li");
-    if (searchHistoryItems.length > 5) {
-      searchHistory.removeChild(
-        searchHistoryItems[searchHistoryItems.length - 1]
-      );
-    }
+    newLI.addEventListener(`click`, function (event) {
+      event.preventDefault();
+      var city = newLI.textContent;
+      getLatAndLon(city);
+    });
   }
-  var ciudadElement = document.querySelector(".ciudad");
-  ciudadElement.textContent = city;
-
-  console.log(city);
-  console.log(apiurl);
-});
+}
+// The above section was created with help from my tutor Jaun Santiago
 
 window.onload = function () {
   var currentDate = dayjs().format("dddd DD MMMM YYYY");
