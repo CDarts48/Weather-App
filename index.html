@@ -10,12 +10,10 @@
 <body>
     <header>Weather App</header>
     
-    <form autocomplete="off">
+    <form autocomplete="off" id ="searchForm">
         <input type="submit" id ="searchBtn" value="Search">
         <label for="selected-city">Enter a City:</label>
          <input type="text" id="selected-city" placeholder="Search for a city">
-         </select>
-         
     </form>
     <section class = "top">
     <section class="search-history">
@@ -23,23 +21,52 @@
         <ul id = "results">
         </ul>
         </section>
-    <section class="current-weather"> <li class ="ciudad">City</li>
-    <li id ="current-date">(Date)</li>
-    <li>Temp:</li>
-    <li>Wind:</li>
-    <li>Humidity:</li>
-    </section>
+    <section class="current-weather">
+  <li class="ciudad">City</li>
+  <li id="current-date">(Date)</li>
+  <li>Temp: <span id="temp"></span></li>
+  <li>Wind: <span id="wind"></span></li>
+  <li>Humidity: <span id="humidity"></span></li>
+  <!-- formatted using Xpert learning assistant -->
+</section>
     </section>
     <section class = "bottom">
-    <section id ="forecast";">5 Day Forcast</section>
+    <section id ="forecast";">5 Day Forecast</section>
     <section class = "forecast-container">
         <ul>
-            <li id = "day1" class = "of-week">monday</li>
-            <li id = "day2" class = "of-week"">tuesday</li>
-            <li id = "day3" class = "of-week">wednesday</li>
-            <li id = "day4" class = "of-week">thursday</li>
-            <li id = "day5" class = "of-week">friday</li>
+            <li id = "day1" class = "of-week">
+                <div class = "img"></div>
+                <div class = "temp"></div>
+                <div class = "wind"></div>
+                <div class = "humidity"></div>
+            </li>
+            <li id = "day2" class = "of-week"">
+                <div class = "img"></div>
+                <div class = "temp"></div>
+                <div class = "wind"></div>
+                <div class = "humidity"></div>
+            </li>
+            <li id = "day3" class = "of-week">
+                <div class = "img"></div>
+                <div class = "temp"></div>
+                <div class = "wind"></div>
+                <div class = "humidity"></div>
+            </li>
+            <li id = "day4" class = "of-week">
+                <div class = "img"></div>
+                <div class = "temp"></div>
+                <div class = "wind"></div>
+                <div class = "humidity"></div>
+            </li>
+            <li id = "day5" class = "of-week">
+                <div class = "img"></div>
+                <div class = "temp"></div>
+                <div class = "wind"></div>
+                <div class = "humidity"></div>
+            </li>
         </ul>
+
+<!-- List above will be dynamically populated -->
     </section>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.10.7/dayjs.min.js"></script>
     <script src="script.js"></script>

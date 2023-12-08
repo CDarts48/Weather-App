@@ -1,22 +1,27 @@
 const APIKey = "98cf718268619abb852c630a60f05a1e";
-var searchHistoryItems = document.querySelectorAll(".search-history li");
-var currentDate = dayjs().format("YYYY-MM-DD");
-
+let searchHistoryItems = document.querySelectorAll(".search-history li");
+let currentDate = dayjs().format("YYYY-MM-DD");
 console.log(currentDate);
-var date = new Date();
+let date = new Date(currentDate);
 var daysToAdd = 1;
 date.setDate(date.getDate() + daysToAdd);
-const nextFiveDays = [];
+const forecastContainer = document.querySelector(".forecast-container ul");
 
-var ofWeekElements = document.getElementsByClassName("of-Week");
-for (var i = 1; i < ofWeekElements.length; i++) {
-  var currentDate = new Date();
-  currentDate.setDate(currentDate.getDate() + 1);
-  dayOfWeek[i].innerHTML = currentDate();
+var selectedCityInput = document.querySelector("#selected-city");
+
+var ofWeekElements = document.getElementsByClassName("of-week");
+for (var i = 0; i < ofWeekElements.length; i++) {
+  var dayOfWeek = new Date();
+  dayOfWeek.setDate(date.getDate() + i);
+  ofWeekElements[i].innerHTML = dayjs().add(i, "day").format("dddd");
+}
+
+const day1 = document.getElementById("day1");
+if (day1) {
+  day1.innerHTML = "Today";
 }
 console.log(date);
-console.log(ofWeekElements);
-// console.log(ofWeekElements[0]);
+console.log(dayOfWeek);
 
 var searchBtn = document.getElementById("searchBtn");
 var cityName = document.getElementById("selected-city");
@@ -63,28 +68,82 @@ function getWeatherData(lat, lon) {
 
 function renderWeatherData(data) {
   for (var i = 0; i < 40; i += 8) {
-    var selectedObject = data[i];
     console.log(data);
     localStorage.setItem("selectedCity", cityName.value);
+    displayWeatherData(data.list[i]);
   }
 }
 
-function saveSearchHistory(city) {
-  var searchHistory = document.querySelector(".search-history");
+function displayWeatherData(data) {
+  var tempElement = document.querySelector("#temp");
+  var windElement = document.querySelector("#wind");
+  var humidityElement = document.querySelector("#humidity");
+
+  if (tempElement) {
+    tempElement.innerHTML = data.main.temp;
+  }
+  if (windElement) {
+    windElement.textContent = data.wind.speed;
+  }
+  if (humidityElement) {
+    humidityElement.textContent = data.main.humidity;
+  }
+}
+
+let nextFiveDays = [
+  document.getElementById("day1"),
+  document.getElementById("day2"),
+  document.getElementById("day3"),
+  document.getElementById("day4"),
+  document.getElementById("day5"),
+];
+
+const newArray = [].concat(nextFiveDays.slice(0, 5));
+console.log(newArray);
+//  {
+// let filterData = newArray.array.filter (data)
+// 'main.temp', 'wind.speed', 'main.humidity';
+// console.log(filteredData);
+// }
+// // // [main.temp wind.speed main.humidity];
+
+function saveSearchHistory(city, weatherData) {
+  var searchHistory = document.querySelector("#results");
   if (searchHistory) {
-    if (searchHistory.children.length >= 5) {
-      searchHistory.removeChild(searchHistory.firstElementChild);
-    }
     var newLI = document.createElement("li");
     newLI.textContent = city;
     searchHistory.appendChild(newLI);
-    newLI.addEventListener(`click`, function (event) {
-      event.preventDefault();
-      var city = newLI.textContent;
-      getLatAndLon(city);
+
+    if (searchHistory.children.length > 5) {
+      searchHistory.removeChild(searchHistory.firstElementChild);
+    }
+
+    newLI.addEventListener(`click`, function () {
+      var savedWeatherData = localStorage.getItem(city);
+      if (savedWeatherData) {
+        renderWeatherData(JSON.parse(savedWeatherData));
+      } else {
+        fetchWeatherData(city);
+      }
     });
+
+    localStorage.setItem(city, JSON.stringify(weatherData));
   }
 }
+
+function fetchWeatherData(city) {
+  saveSearchHistory(city, fetchedData);
+}
+
+var selectedCityInput = document.querySelector("#selected-city");
+var ciudadElement = document.querySelector(".ciudad");
+
+selectedCityInput.addEventListener("change", function () {
+  setTimeout(function () {
+    ciudadElement.textContent = selectedCityInput.value;
+  }, 50);
+});
+
 // The above section was created with help from my tutor Jaun Santiago
 
 var city = localStorage.getItem("city");
@@ -92,20 +151,20 @@ if (city) {
   var searchHistory = document.querySelector(".search-history");
   if (searchHistory) {
     var newLI = document.createElement("li");
+    if (searchHistory.children.length >= 3) {
+      searchHistory.removeChild(searchHistory.firstElementChild);
+    }
     newLI.textContent = city;
     searchHistory.appendChild(newLI);
-
-    var searchHistoryItems = document.querySelectorAll(".search-history li");
-    if (searchHistoryItems.length > 5) {
-      searchHistory.removeChild(
-        searchHistoryItems[searchHistoryItems.length - 1]
-      );
-    }
-
-    window.onload = function () {
-      var currentDate = dayjs().format("dddd DD MMMM YYYY");
-      var currentDayEl = document.getElementById("current-date");
-      currentDayEl.innerHTML = currentDate;
-    };
   }
 }
+
+window.onload = function () {
+  var currentDate = dayjs().format("dddd DD MMMM YYYY");
+  var currentDayEl = document.getElementById("current-date");
+  if (currentDayEl) {
+    currentDayEl.innerHTML = currentDate;
+  } else {
+    console.log('Element with id "current-date" not found');
+  }
+};
