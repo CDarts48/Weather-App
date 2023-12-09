@@ -30,12 +30,13 @@ const forecast5 = document.getElementById("forecast-container");
 searchBtn.addEventListener(`click`, function (event) {
   event.preventDefault();
   var city = cityName.value;
+  localStorage.setItem("selectedCity", city);
   getLatAndLon(city);
   saveSearchHistory(city);
 });
 
 function getLatAndLon(city) {
-  var apiUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${APIKey}`;
+  var apiUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${APIKey}&units=imperial`;
 
   fetch(apiUrl)
     .then(function (response) {
@@ -51,7 +52,7 @@ function getLatAndLon(city) {
     });
 }
 function getWeatherData(lat, lon) {
-  var apiUrl = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${APIKey}`;
+  var apiUrl = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${APIKey}&units=imperial`;
 
   fetch(apiUrl)
     .then(function (response) {
@@ -68,29 +69,12 @@ function getWeatherData(lat, lon) {
 
 function renderWeatherData(data) {
   for (var i = 0; i < 40; i += 8) {
-    console.log(data);
-    localStorage.setItem("selectedCity", cityName.value);
-    displayWeatherData(data.list[i]);
+    displayWeatherData(data.list[(i, i)]);
+    console.log(data.list[(i, i)]);
   }
 }
 
-function displayWeatherData(data) {
-  var tempElement = document.querySelector("#temp");
-  var windElement = document.querySelector("#wind");
-  var humidityElement = document.querySelector("#humidity");
-
-  if (tempElement) {
-    tempElement.innerHTML = data.main.temp;
-  }
-  if (windElement) {
-    windElement.textContent = data.wind.speed;
-  }
-  if (humidityElement) {
-    humidityElement.textContent = data.main.humidity;
-  }
-}
-
-let nextFiveDays = [
+var nextFiveDays = [
   document.getElementById("day1"),
   document.getElementById("day2"),
   document.getElementById("day3"),
@@ -100,12 +84,22 @@ let nextFiveDays = [
 
 const newArray = [].concat(nextFiveDays.slice(0, 5));
 console.log(newArray);
-//  {
-// let filterData = newArray.array.filter (data)
-// 'main.temp', 'wind.speed', 'main.humidity';
-// console.log(filteredData);
-// }
-// // // [main.temp wind.speed main.humidity];
+
+function displayWeatherData(data) {
+  var tempElement = document.querySelector("#temp");
+  var windElement = document.querySelector("#wind");
+  var humidityElement = document.querySelector("#humidity");
+
+  if (tempElement) {
+    tempElement.textContent = data.main.temp;
+  }
+  if (windElement) {
+    windElement.textContent = data.wind.speed;
+  }
+  if (humidityElement) {
+    humidityElement.textContent = data.main.humidity;
+  }
+}
 
 function saveSearchHistory(city, weatherData) {
   var searchHistory = document.querySelector("#results");
