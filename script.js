@@ -36,7 +36,7 @@ searchBtn.addEventListener(`click`, function (event) {
 });
 
 function getLatAndLon(city) {
-  var apiUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${APIKey}&units=imperial`;
+  var apiUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${APIKey}&units=imperial`;
 
   fetch(apiUrl)
     .then(function (response) {
@@ -52,7 +52,7 @@ function getLatAndLon(city) {
     });
 }
 function getWeatherData(lat, lon) {
-  var apiUrl = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${APIKey}&units=imperial`;
+  var apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${APIKey}&units=imperial`;
 
   fetch(apiUrl)
     .then(function (response) {
