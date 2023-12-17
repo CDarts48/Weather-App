@@ -32,6 +32,11 @@ ul {
   height: calc(100vh / 6);
 }
 
+.search-history ul li:hover {
+  color: blueviolet;
+  cursor: pointer;
+}
+
 .current-weather {
   display: flex;
   width: fit-content;
@@ -52,6 +57,12 @@ ul {
 #results {
   display: block;
   min-height: 1.5vh;
+}
+
+ul li {
+  flex-direction: column;
+  align-items: start;
+  margin-top: 3%;
 }
 
 @media (max-width: 768px) {
