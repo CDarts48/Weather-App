@@ -24,7 +24,7 @@ ul {
 
 .top {
   display: flex;
-  height: 25vh;
+  height: 28vh;
 }
 /* I tried to dynamically move the 5 Day Forecast but that proved to difficult so I just made the top bigger */
 .search-history {
