@@ -1,7 +1,5 @@
 # Weather-App
 
-# Weather-App
-
 **Motivation**
 Aside from this being assigned this app as a project my motivation to build this was to get a good understanding of making a weather app so I can in the future track snow and surf reports with my app.
 
