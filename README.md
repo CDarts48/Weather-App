@@ -20,4 +20,4 @@ HTML CSS JavaScript API
 
 **Assistance**
 I was assisted in this project by my tutors from the bootcamp. I also ran the code through both the xpert learning assist and github copilot. 
-
+<img width="1680" alt="Screenshot 2024-01-09 at 11 39 07 AM" src="https://github.com/CDarts48/Weather-App/assets/137344214/fc02b761-8f4a-404a-8d9c-deba9d4cbd08">
